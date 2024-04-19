@@ -5,7 +5,6 @@
 //  Created by daniel ortiz millan on 17/04/24.
 //
 
-import Foundation
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
@@ -13,10 +12,10 @@ import Foundation
 
 import Foundation
 
-// MARK: - Jüsto
-struct Jüsto: Codable {
-    let results: [Result]
-    let info: Info
+// MARK: - Justo
+struct Justo: Codable {
+    let results: [ResultUser]
+    //let info: Info
 }
 
 // MARK: - Info
@@ -27,7 +26,7 @@ struct Info: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct ResultUser: Codable {
     let gender: String
     let name: Name
     let location: Location
@@ -78,16 +77,59 @@ struct Timezone: Codable {
 
 // MARK: - Login
 struct Login: Codable {
-    let uuid, username, password, salt: String
+    let uuid: String
+   // let uuid, username, password, salt: String
     let md5, sha1, sha256: String
 }
 
 // MARK: - Name
 struct Name: Codable {
-    let title, first, last: String
+   //let title, first, last: String
+    let first: String
+    let last: String
 }
 
 // MARK: - Picture
 struct Picture: Codable {
     let large, medium, thumbnail: String
 }
+
+
+/*enum UserNameType {
+    case first(String)
+    case last(String)
+    case fullName(String, String)
+}
+
+enum ResultName {
+    case name(UserNameType)
+}*/
+
+
+
+/*
+enum StringOrInt: Codable {
+    case string(String)
+    case int(Int)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let stringValue = try? container.decode(String.self) {
+            self = .string(stringValue)
+        } else if let intValue = try? container.decode(Int.self) {
+            self = .int(intValue)
+        } else {
+            throw DecodingError.typeMismatch(StringOrInt.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Expected a String or an Int"))
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .string(let stringValue):
+            try container.encode(stringValue)
+        case .int(let intValue):
+            try container.encode(intValue)
+        }
+    }
+}*/
